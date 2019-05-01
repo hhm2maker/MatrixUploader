@@ -7,9 +7,9 @@ namespace MatrixUploader
     public class MatrixUploader : Blog.IToBlog
     {
         private String filePath;
-        public void ToBlog(string parameters)
+        public void ToBlog(string parameter)
         {
-            string url = parameters;
+            string url = parameter;
 
             WebClient webClient = new WebClient();
             webClient.Encoding = Encoding.UTF8;
@@ -17,7 +17,7 @@ namespace MatrixUploader
             //这里使用DownloadString方法，如果是不需要对文件的文本内容做处理，直接保存，那么可以直接使用功能DownloadFile(url,savepath)直接进行文件保存。
             webClient.DownloadFileCompleted += WebClient_DownloadFileCompleted;
 
-            filePath = AppDomain.CurrentDomain.BaseDirectory + @"Download\" + parameters.Substring(url.LastIndexOf("/") + 1);
+            filePath = AppDomain.CurrentDomain.BaseDirectory + @"Download\" + url.Substring(url.LastIndexOf("/") + 1);
 
             webClient.DownloadFileAsync(new Uri(url), filePath);
         }
